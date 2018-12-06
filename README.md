@@ -18,6 +18,7 @@ $ lxc-checkconfig
 ## with ip adress 10.0.3.11 (we will assign this one later), THIS SHOULD BE DONE EVERYTIME THE PI STARTS. 
 
 $ sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j DNAT --to-destination 10.0.3.11:80
+
 $ sudo sysctl net.ipv4.ip_forward=1
 
 ## Check the forwarding
@@ -29,15 +30,21 @@ $ sudo iptables -t nat -L
 ## Check the values in subuid and subgid
 
 $ grep $USER /etc/subuid
+
 $ grep $USER /etc/subgid
 
 ## Add these values to ~/.config/lxc and config the bridge
 
 $ mkdir -p ~/.config/lxc
+
 $ echo "lxc.id_map = u 0 100000 65536" > ~/.config/lxc/default.conf
+
 $ echo "lxc.id_map = g 0 100000 65536" >> ~/.config/lxc/default.conf
+
 $ echo "lxc.network.type = veth" >> ~/.config/lxc/default.conf
+
 $ echo "lxc.network.link = lxcbr0" >> ~/.config/lxc/default.conf
+
 $ echo "$USER veth lxcbr0 10" | sudo tee -a /etc/lxc/lxc-usernet
 
 $ sudo nano /etc/lxc/default.conf 
@@ -46,6 +53,7 @@ $ sudo nano /etc/lxc/default.conf
 	lxc.network.link = lxcbr0
 	lxc.network.flags = up
 	lxc.network.hwaddr = 00:16:3e:xx:xx:xx
+
 $ sudo nano /etc/default/lxc-net
 
 	USE_LXC_BRIDGE="true"
@@ -56,6 +64,7 @@ $ sudo nano /etc/lxc/dhcp.conf
 
 	dhcp-host=Con1,10.0.3.11
 	dhcp-host=Con2,10.0.3.12	
+
 $ sudo nano /etc/default/lxc-net
 
 	LXC_DHCP_CONFILE=/etc/lxc/dhcp.conf
@@ -79,6 +88,7 @@ $ lxc-attach -n Con1
 ## Install lighttpd and php
 
 $ lxc-attach -n Con1 -- apk update
+
 $ lxc-attach -n Con1 -- apk add lighttpd php5 php5-cgi php5-curl php5-fpm
 
 ## Uncomment the include "mod_fastcgi.conf" line in /etc/lighttpd/lighttpd.conf
@@ -88,6 +98,7 @@ $ vi /etc/lighttpd/lighttpd.conf
 ## Start the lighttpd service
 
 $ rc-update add lighttpd default
+
 $ openrc
 
 ## Create /var/www/localhost/htdocs/index.php and add the following:
@@ -120,6 +131,7 @@ $ apk add socat
 ## Make a script called bin/rng.sh and make it executable
 
 $ vi bin/rng.sh
+
 $ chmod +x bin/rng.sh
 
 ## Add this to the script:
