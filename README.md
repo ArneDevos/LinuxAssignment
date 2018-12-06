@@ -1,7 +1,7 @@
 # LinuxAssignment
 Final Assignment for the elective course Linux
 
-# Start Pi
+## Start Pi
 # Install lxc
 
 $ sudo apt-get update
@@ -11,7 +11,7 @@ $ lxc-checkconfig
 
 # Everything looked fine, we can continue
 
-# Set up the Iptable so request to the pi are forwarded to the first container
+# Set up the Iptable so requests to the pi are forwarded to the first container
 # with ip adress 10.0.3.11 (we will assign this one later), THIS SHOULD BE DONE EVERYTIME THE PI STARTS. 
 
 $ sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j DNAT --to-destination 10.0.3.11:80
