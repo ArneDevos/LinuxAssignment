@@ -5,8 +5,11 @@ Final Assignment for the elective course Linux
 ## Install lxc
 
 $ sudo apt-get update
+
 $ sudo apt-get isntall lxc
+
 $ sudo modprobe configs
+
 $ lxc-checkconfig
 
 ## Everything looked fine, we can continue
