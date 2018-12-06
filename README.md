@@ -38,19 +38,23 @@ $ echo "lxc.network.link = lxcbr0" >> ~/.config/lxc/default.conf
 $ echo "$USER veth lxcbr0 10" | sudo tee -a /etc/lxc/lxc-usernet
 
 $ sudo nano /etc/lxc/default.conf 
+
 	lxc.network.type = veth
 	lxc.network.link = lxcbr0
 	lxc.network.flags = up
 	lxc.network.hwaddr = 00:16:3e:xx:xx:xx
 $ sudo nano /etc/default/lxc-net
+
 	USE_LXC_BRIDGE="true"
 
 ## Make the ip adresses of the containers static
 
 $ sudo nano /etc/lxc/dhcp.conf
+
 	dhcp-host=Con1,10.0.3.11
 	dhcp-host=Con2,10.0.3.12	
 $ sudo nano /etc/default/lxc-net
+
 	LXC_DHCP_CONFILE=/etc/lxc/dhcp.conf
 
 ## Restart the lxc service
